@@ -2,8 +2,8 @@
 
 # --- CONFIGURATION ---
 OUTPUT_FILE="export_contenu.md"
-EXCLUDE_DIRS=(".venv" ".git" "node_modules" "__pycache__")
-EXCLUDE_FILES=(".env" "$OUTPUT_FILE" "export_project.sh")
+EXCLUDE_DIRS=(".venv" ".git" "node_modules" "__pycache__"  )
+EXCLUDE_FILES=(".env" "$OUTPUT_FILE" "export_project.sh" "__init__" )
 INCLUDE_EXTENSIONS=("py" "sh" "md" "txt" "json" "js")
 
 # --- VÉRIFICATION DE TREE ---
@@ -42,10 +42,17 @@ echo -e "\n---\n" >> "$OUTPUT_FILE"
 
 # --- CONSTRUCTION DE LA COMMANDE FIND ---
 find_args=("$TARGET_DIR")
+
+# 1. On ignore les dossiers spécifiés dans EXCLUDE_DIRS
 for dir in "${EXCLUDE_DIRS[@]}"; do
     find_args+=("-path" "*/$dir" "-prune" "-o")
 done
-find_args+=("-type" "f")
+
+# 2. On ignore TOUS les fichiers/dossiers commençant par un "."
+find_args+=("-name" ".*" "-prune" "-o")
+
+# 3. On ne garde que les fichiers (-type f)
+find_args+=("-type" "f" "-print")
 
 # --- PARCOURS ET EXTRACTION ---
 find "${find_args[@]}" -print | while read -r filepath; do
@@ -64,10 +71,9 @@ find "${find_args[@]}" -print | while read -r filepath; do
         [[ ! " ${INCLUDE_EXTENSIONS[*]} " =~ " $ext " ]] && continue
     fi
 
-    echo "## Fichier : ${filepath#$TARGET_DIR/}" >> "$OUTPUT_FILE"
+echo "## Fichier : ${filepath#$TARGET_DIR/}" >> "$OUTPUT_FILE"
     echo '```text' >> "$OUTPUT_FILE"
     cat "$filepath" >> "$OUTPUT_FILE"
-    echo -e "\n```\n" >> "$OUTPUT_FILE"
+    # Échappe bien les backticks ici avec un antislash devant chacun
+    echo -e "\n\`\`\`\n" >> "$OUTPUT_FILE"
 done
-
-echo "Extraction terminée. Fichier généré : $OUTPUT_FILE"
