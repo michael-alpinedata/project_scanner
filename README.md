@@ -28,6 +28,20 @@ chmod +x extract_project_code.sh
 
 ```
 
+## Ajout d'un alias pour faciliter l'utilisation
+```bash
+vim ~/.bashrc
+```
+
+```bash 
+# ajouter cette ligne en fin de fichier
+alias scan-project='~/CHEMIN/OU/EST/project_scanner/extract_project_code.sh'
+```
+
+```bash
+source ~/.bashrc
+```
+
 ## 💡 Utilisation
 
 Lancez le script en passant le chemin du dossier que vous souhaitez analyser en argument (chemin relatif ou absolu) :
@@ -36,6 +50,14 @@ Lancez le script en passant le chemin du dossier que vous souhaitez analyser en 
 ./extract_project_code.sh /chemin/vers/votre/projet
 
 ```
+
+ou
+```bash
+scan-project /chemin/vers/votre/projet
+
+```
+
+
 
 ### Emplacement de sortie
 
