@@ -49,7 +49,7 @@ ExcludedDirectoryNames=(
 )
 
 IncludedExtensions=(
-  ".py" ".json" ".yaml" ".yml" ".md" ".html" ".css" ".tex" ".txt" ".sql" ".tf"
+  ".py" ".ipynb" ".yaml" ".yml" ".md" ".html" ".css" ".tex" ".txt" ".sql" ".tf"
 )
 
 # ===================================================================
