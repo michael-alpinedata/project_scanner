@@ -45,7 +45,7 @@ ExcludedFilesRelativePath=(
 )
 
 ExcludedDirectoryNames=(
-  ".git" "bin" "obj" "docs" "compiled" "node_modules" "target" "package" "__pycache__" ".venv" "venv" "dist" "fixtures"
+  ".git" "bin" "obj" "docs" "compiled" "coverage" "public" ".husky" ".continue" "node_modules" "target" "package" "__pycache__" ".venv" "venv" "dist" "fixtures"
 )
 
 IncludedExtensions=(
