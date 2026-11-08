@@ -174,10 +174,11 @@ function Test-ProcessFile {
         }
     }
 
-    $Extension = [System.IO.Path]::GetExtension($File).ToLowerInvariant()
-
-    if ($IncludedExtensions -contains $Extension) {
-        return $true
+    $FileName = Split-Path -Leaf $File
+    foreach ($IncExt in $IncludedExtensions) {
+        if ($FileName.EndsWith($IncExt, [System.StringComparison]::OrdinalIgnoreCase)) {
+            return $true
+        }
     }
 
     return $false
